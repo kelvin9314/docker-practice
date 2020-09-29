@@ -1,0 +1,13 @@
+web-nginx: 
+  image: nginx:latest
+  ports: 
+    - 8080:80
+  volumes: 
+    - ./build:/usr/share/nginx/html
+
+web-apache: 
+  build: ./docker
+  ports:
+    - 8081:80
+  volumes: 
+    - ./build:/usr/local/apache2/htdocs/

@@ -23,3 +23,12 @@ p.s.
 2. Configuring a production-ready image using multistage builds
 
 
+```bash
+docker build -f Dockerfile.prod -t sample:prod .
+```
+```bash
+ docker run -it --rm -p 1337:80 sample:prod
+ 
+ # or using docker compose
+ docker-compose -f docker-compose.prod.yml up -d --build
+```

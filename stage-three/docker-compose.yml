@@ -2,8 +2,10 @@ version: '3.7'
 services:
   nextjs:
     build: ./nestjs
-    
+  nuxtjs:
+    build: ./nuxtjs
   nginx: 
     build: ./nginx
     ports: 
       - 8001:80
+  

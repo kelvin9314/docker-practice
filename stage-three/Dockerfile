@@ -2,15 +2,18 @@ FROM node:12-alpine
 
 WORKDIR /usr/app
 
-COPY ./package.json ./
-COPY ./yarn.lock ./
+RUN npm install --global pm2
 
-RUN yarn
+COPY ./package-lock.json ./
+# COPY ./package.json ./
+# COPY ./yarn.lock ./
+
+RUN npm install --production
 
 # Copy all files
 COPY ./ ./ 
 
-RUN  yarn build
+RUN npm run build
 
 EXPOSE 3000
 
@@ -18,5 +21,5 @@ EXPOSE 3000
 # The node user is provided in the Node.js Alpine base image
 USER node
 
-# Run npm start script when container starts
-CMD [ "npm", "start" ]
+# Run npm start script with PM2 when container starts
+CMD [ "pm2-runtime", "npm", "--", "start" ]

@@ -1,30 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# nginx-for-nextjs
 
-## Getting Started
+- https://steveholgado.com/nginx-for-nextjs/
 
-First, run the development server:
 
+## execute with docker compose
 ```bash
-npm run dev
-# or
-yarn dev
+docker-compose up
+
+docker-compose down
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Note, if you need to force a re-build of the images in future you can run:
+```
+docker-compose up --build
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## no docker compose
+```
+# Build images
+docker build --tag nextjs-image .
+docker build --tag nginx-image ./nginx
 
-## Learn More
+# Create shared network
+docker network create my-network
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+# Run containers
+docker run --network my-network --name nextjs-container nextjs-image
+docker run --network my-network --link nextjs-container:nextjs --publish 80:80 nginx-image
+```
+> NOTE: We need to use --link to map our Next.js container to our NGINX container as it is referenced as nextjs in default.conf.

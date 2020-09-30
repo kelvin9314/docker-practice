@@ -12,7 +12,7 @@ ref:
 
 ## stage-three
 
-NGINX revert proxy to Next.js
+NGINX revert proxy to both of Next.js and Nuxt.js
 
 ref:
 - https://steveholgado.com/nginx-for-nextjs/

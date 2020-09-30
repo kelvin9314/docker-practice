@@ -1,7 +1,8 @@
 version: '3.7'
 services:
   nextjs:
-    build: ./
+    build: ./nestjs
+    
   nginx: 
     build: ./nginx
     ports: 

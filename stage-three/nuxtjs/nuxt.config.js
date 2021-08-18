@@ -12,7 +12,7 @@ export default {
     ]
   },
   router: {
-    base: '/bbb/'
+    base: '/nuxt'
   },
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
